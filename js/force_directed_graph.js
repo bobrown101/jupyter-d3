@@ -19,6 +19,8 @@ var svg = d3.select("#maindiv${divnum}").append("svg")
 //d3.json("miserables.json", function(error, graph) {
 //  if (error) throw error;
 var graph = $data ;
+// console.log("graph:");
+// console.log(graph);
 
   force
       .nodes(graph.nodes)
