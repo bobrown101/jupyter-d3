@@ -1,11 +1,10 @@
 # GraphML to d3.js visualization utilities
 
+
+
+## To start the project:
 *Must have jupyter installed*
-
 ```
-
-To start the project:
-
 jupyter notebook    # this should be run at the root directory of this repo
 ```
 
