@@ -2,11 +2,12 @@
 
 *Must have jupyter installed*
 
-run 
 ```
-jupyter notebook
+
+To start the project:
+
+jupyter notebook    # this should be run at the root directory of this repo
 ```
-at the base of this project
 
 the main file that I have been working on is force-directed-graph.ipynb
 
