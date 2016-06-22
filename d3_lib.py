@@ -38,7 +38,7 @@ def draw_graph(type, data_dict):
     data_dict['divnum'] = divnum
     main_text_template = Template( open(this_dir() + '/js/' + type + '.js','r').read() )
     main_text = main_text_template.safe_substitute(data_dict)
-    print(main_text)
+    # print(main_text)
 
     return JS_text.safe_substitute({'divnum': divnum, 'main_text': main_text})
 
