@@ -7,12 +7,7 @@ var force = d3.layout.force()
     .charge(-400)
     .linkDistance(50)
     .size([width, height]);
-//
-// var svg = d3.select("body").append("svg")
-//     .attr("width", width)
-//     .attr("height", height);
 
-// var stuff = document.getElementById('mis').innerHTML;
 
 d3.select("#maindiv${divnum}").selectAll("svg").remove();
 var svg = d3.select("#maindiv${divnum}").append("svg")
@@ -20,7 +15,7 @@ var svg = d3.select("#maindiv${divnum}").append("svg")
     .attr("height", height);
 
 
-var graph = $data ;
+var graph = $data;
 
 force.nodes(graph.nodes) //Creates the graph data structure out of the json data
 .links(graph.links)
