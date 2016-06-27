@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+       http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+ <key id="d0" for="node" attr.name="color" attr.type="string">
+   <default>yellow</default>
+ </key>
+ <key id="d1" for="edge" attr.name="quality" attr.type="float">
+   <default>1.0</default>
+ </key>
+ <key id="d2" for="edge" attr.name="color" attr.type="string">
+   <default> red </default>
+ </key>
+ <graph id="multigraph" edgedefault="undirected">
+   <node id="n0">
+     <data key="d0">green</data>
+   </node>
+   <node id="n1"/>
+   <node id="n2">
+     <data key="d0">blue</data>
+   </node>
+   <edge id="n0_linktype1" source="n0" target="n2">
+     <data key="d1">0.6</data>
+     <data key="d2">blue</data>
+   </edge>
+   <edge id="n0_linktype2" source="n0" target="n2">
+     <data key="d1">0.8</data>
+   </edge>
+   <edge id="n1_linktype1" source="n1" target="n2">
+     <data key="d2">blue</data>
+   </edge>
+ </graph>
+</graphml>

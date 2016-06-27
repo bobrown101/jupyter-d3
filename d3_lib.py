@@ -58,24 +58,37 @@ def graphmltojson(graphfile, outfile):
     """
     Converts GraphML file to json while adding communities/modularity groups
     using python-louvain. JSON output is usable with D3 force layout.
-    Usage:
-    >>> python convert.py -i mygraph.graphml -o outfile.json
     """
 
     G = nx.read_graphml(graphfile)
 
     #finds best community using louvain
-    partition = community.best_partition(G)
+    # partition = community.best_partition(G)
+
+    degree_centrality = nx.degree_centrality(G)
+
+    # print(degree_centrality)
+
+
 
     #adds partition/community number as attribute named 'modularitygroup'
     for n,d in G.nodes_iter(data=True):
-        d['modularitygroup'] = partition[n]
 
-        node_link = json_graph.node_link_data(G)
+        d['centrality'] = degree_centrality[n]
+
+        # print("-------")
+        # print(n )
+        # print(d)
+        # print("-------")
+        # d['modularitygroup'] = partition[n]
+
+        # node_link = json_graph.node_link_data(G)
         # print(str(nx.readwrite.json_graph))
         # json = nx.readwrite.json_graph.dumps(node_link)
 
-        # Write to file
-        fo = open(outfile, "w")
-        fo.write(json.dumps(node_link, outfile, indent=4))
-        fo.close()
+    node_link = json_graph.node_link_data(G)
+
+    # Write to file
+    fo = open(outfile, "w")
+    fo.write(json.dumps(node_link, outfile, indent=4))
+    fo.close()

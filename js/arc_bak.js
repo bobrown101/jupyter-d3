@@ -1,11 +1,12 @@
 /* GLOBALS */
 
-var width  = 960;           // width of svg image
-var height = 400;           // height of svg image
+var width  = 1000;           // width of svg image
+var height = 1000;           // height of svg image
 var margin = 20;            // amount of margin around plot area
 var pad = margin / 2;       // actual padding amount
 var radius = 4;             // fixed node radius
-var yfixed = pad + radius;  // y position for all nodes
+var yfixed = 400 - pad - radius;  // y position for all nodes
+var xfixed = pad + radius;
 
 var json_data = $data;
 
@@ -116,10 +117,16 @@ function linearLayout(nodes) {
         .domain([0, nodes.length - 1])
         .range([radius, width - margin - radius]);
 
+    // // calculate pixel location for each node
+    // nodes.forEach(function(d, i) {
+    //     d.x = xscale(i);
+    //     d.y = yfixed;
+    // });
+
     // calculate pixel location for each node
     nodes.forEach(function(d, i) {
-        d.x = xscale(i);
-        d.y = yfixed;
+        d.x = xfixed;
+        d.y = xscale(i);
     });
 }
 

@@ -1,0 +1,50 @@
+{
+    "multigraph": true,
+    "links": [
+        {
+            "id": "n1_linktype1",
+            "color": "blue",
+            "source": 0,
+            "key": "n1_linktype1",
+            "target": 1
+        },
+        {
+            "id": "n0_linktype1",
+            "color": "blue",
+            "target": 2,
+            "key": "n0_linktype1",
+            "source": 1,
+            "quality": 0.6
+        },
+        {
+            "id": "n0_linktype2",
+            "target": 2,
+            "source": 1,
+            "quality": 0.8,
+            "key": "n0_linktype2"
+        }
+    ],
+    "nodes": [
+        {
+            "id": "n1"
+        },
+        {
+            "id": "n2",
+            "color": "blue"
+        },
+        {
+            "id": "n0",
+            "color": "green"
+        }
+    ],
+    "directed": false,
+    "graph": {
+        "node_default": {
+            "color": "yellow"
+        },
+        "edge_default": {
+            "color": " red ",
+            "quality": 1.0
+        }
+    }
+}
