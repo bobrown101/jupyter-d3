@@ -5,7 +5,7 @@ var height = 400;           // height of svg image
 var margin = 20;            // amount of margin around plot area
 var pad = margin / 2;       // actual padding amount
 var radius = 4;             // fixed node radius
-var yfixed = 400 - pad - radius;  // y position for all nodes
+var yfixed = pad + radius;  // y position for all nodes
 
 var json_data = $data;
 
