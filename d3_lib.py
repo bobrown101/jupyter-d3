@@ -86,7 +86,7 @@ def draw_graph_from_graphml_with_algorithm(type, input_filename, algorithm, norm
         print("Un-normalized centrality numbers")
         pp.pprint(degree_centrality)
 
-        degree_centrality = normalize(degree_centrality)
+        degree_centrality = normalize(degree_centrality, normalize_val)
 
         pp.pprint(degree_centrality)
 

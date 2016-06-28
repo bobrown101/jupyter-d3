@@ -4,44 +4,13 @@ var width  = 1000;           // width of svg image
 var height = 1000;           // height of svg image
 var margin = 20;            // amount of margin around plot area
 var pad = margin / 2;       // actual padding amount
-var radius = 30;             // fixed node radius
+var radius = 10;             // fixed node radius
 var yfixed = 400 - pad - radius;  // y position for all nodes
 var xfixed = pad + radius;
 
 var json_data = $data;
 
 /* HELPER FUNCTIONS */
-
-// Generates a tooltip for a SVG circle element based on its ID
-function addTooltip(circle) {
-    var x = parseFloat(circle.attr("cx"));
-    var y = parseFloat(circle.attr("cy"));
-    var r = parseFloat(circle.attr("r"));
-    var text = circle.attr("id");
-
-    var tooltip = d3.select("#maindiv${divnum}")
-        .append("text")
-        .text(text)
-        .attr("x", x)
-        .attr("y", y)
-        .attr("dy", -r * 2)
-        .attr("id", "tooltip");
-
-    var offset = tooltip.node().getBBox().width / 2;
-
-    if ((x - offset) < 0) {
-        tooltip.attr("text-anchor", "start");
-        tooltip.attr("dx", -r);
-    }
-    else if ((x + offset) > (width - margin)) {
-        tooltip.attr("text-anchor", "end");
-        tooltip.attr("dx", r);
-    }
-    else {
-        tooltip.attr("text-anchor", "middle");
-        tooltip.attr("dx", 0);
-    }
-}
 
 /**
  * Will return an array of links that have the "source"
@@ -71,11 +40,15 @@ function incomingLinks(node) {
 }
 
 function highlightItems(color, items){
-  items.style({"stroke":color, "stroke-width": "8px", "opacity": "1"});
+  items
+  .style({"stroke":color, "stroke-width": "8px", "opacity": "1"})
+  .attr("class", "link animated-link");
 }
 
 function unhighlightItems(items) {
-  items.style({"stroke":"", "stroke-width": "", "opacity": ""});
+  items
+  .style({"stroke":"", "stroke-width": "", "opacity": ""})
+  .attr("class", "link");
 }
 
 /* MAIN DRAW METHOD */
@@ -172,13 +145,6 @@ function drawNodes(nodes) {
         // .attr("r",  function(d, i) { return radius; })
         .attr("r",  function(d, i) { return d.algorithm_filter * radius; })
         .style("fill",   function(d, i) { return color(d.group); })
-        // .on("mouseover", function(d, i) { addTooltip(d3.select(this)); })
-        // .on("mouseout",  function(d, i) { d3.select("#tooltip").remove(); })
-        // .on('mouseover', function(d){
-        //   console.log(d);
-        //   var nodeSelection = d3.select(this).style({"stroke-width":"4px", "stroke":"black"});
-        //   nodeSelection.select("text").style({opacity:'1.0'});
-        // })
         .on('mouseover', function(d){
           highlightItems("green", outgoingLinks(d3.select(this)))
           highlightItems("red", incomingLinks(d3.select(this)))

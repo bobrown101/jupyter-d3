@@ -1,3 +1,9 @@
+@-webkit-keyframes dash {
+  to {
+    stroke-dashoffset: 1000;
+  }
+}
+
 body {
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 300;
@@ -32,7 +38,16 @@ b {
     stroke: #888888;
     stroke-weight: 1px;
     stroke-opacity: 0.5;
+    /*-webkit-animation: dash;*/
+
+
 }
+
+/*.animated-link {
+  animation: dash 60s linear infinite;
+  animation-direction: reverse;
+    stroke-dasharray: 8;
+}*/
 
 .highlight {
     stroke: red;

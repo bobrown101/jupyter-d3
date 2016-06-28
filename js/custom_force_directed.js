@@ -70,9 +70,10 @@ var node = svg.selectAll(".node")
 .append("circle")
 .attr("class", "node")
 .attr("r", function(d) {
-
   if("algorithm_filter" in d){
     return 15*d.algorithm_filter
+  }else if("weight" in d){
+    return d.weight;
   }
   return 10
 
