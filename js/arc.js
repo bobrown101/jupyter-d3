@@ -4,7 +4,7 @@ var width  = 1000;           // width of svg image
 var height = 1000;           // height of svg image
 var margin = 20;            // amount of margin around plot area
 var pad = margin / 2;       // actual padding amount
-var radius = 15;             // fixed node radius
+var radius = 30;             // fixed node radius
 var yfixed = 400 - pad - radius;  // y position for all nodes
 var xfixed = pad + radius;
 
@@ -170,7 +170,7 @@ function drawNodes(nodes) {
         .attr("cx", function(d, i) { return d.x; })
         .attr("cy", function(d, i) { return d.y; })
         // .attr("r",  function(d, i) { return radius; })
-        .attr("r",  function(d, i) { return d.centrality * radius; })
+        .attr("r",  function(d, i) { return d.algorithm_filter * radius; })
         .style("fill",   function(d, i) { return color(d.group); })
         // .on("mouseover", function(d, i) { addTooltip(d3.select(this)); })
         // .on("mouseout",  function(d, i) { d3.select("#tooltip").remove(); })

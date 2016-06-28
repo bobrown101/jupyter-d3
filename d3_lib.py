@@ -3,13 +3,22 @@ import inspect, os
 from string import Template
 import networkx as nx
 import json
+import pprint
 import community
 from networkx.readwrite import json_graph
+
+pp = pprint.PrettyPrinter(indent=4)
 
 
 def this_dir():
     this_file = inspect.getfile(inspect.currentframe())
     return os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+
+# This will normalize a dictionary formatted in {a: .03, b: 1.2, c: .5}
+def normalize(d, target=1.0):
+   raw = sum(d.values())
+   factor = target/raw
+   return {key:value*factor for key,value in d.items()}
 
 
 def set_styles(css_file_names):
@@ -53,6 +62,105 @@ def draw_graph_from_graphml(type, input_filename):
     return draw_graph(type, {'data': json_data})
 
 
+# ######################################################
+# Will return nodes + links in json from a graphml file
+# it can apply an specified algorith, and the value outputted from the algorithm
+# will be available in the 'algorithm_filter' property of the nodes/links
+# ######################################################
+# type                     -> type of graph you would like to display
+# input_filename           -> path to graphml file
+# algorithm                -> algorithm you want to apply,
+#                             see https://networkx.github.io/documentation/networkx-1.9.1/reference/algorithms.html
+# normalize_val (optional) -> this will normalize the values the algorithm produces
+#                             sometimes the values are too small / too large for comfort
+# ######################################################
+def draw_graph_from_graphml_with_algorithm(type, input_filename, algorithm, normalize_val=1.0):
+
+    output_filename = './data_sets/temp_data/' + str(int(random.uniform(0,9999999999))) + ".json"
+
+    G = nx.read_graphml(input_filename)
+
+    if(algorithm == "degree_centrality"):
+        degree_centrality = nx.degree_centrality(G)
+
+        print("Un-normalized centrality numbers")
+        pp.pprint(degree_centrality)
+
+        degree_centrality = normalize(degree_centrality)
+
+        pp.pprint(degree_centrality)
+
+        for n,d in G.nodes_iter(data=True):
+            d['algorithm_filter'] = degree_centrality[n]
+    elif(algorithm == "load_centrality"):
+        load_centrality = nx.load_centrality(G)
+
+        print("Un-normalized centrality numbers")
+        pp.pprint(load_centrality)
+
+        load_centrality = normalize(load_centrality)
+
+        pp.pprint(load_centrality)
+
+        for n,d in G.nodes_iter(data=True):
+            d['algorithm_filter'] = load_centrality[n]
+
+    elif(algorithm == "closeness_centrality"):
+        closeness_centrality = nx.closeness_centrality(G)
+
+        print("Un-normalized centrality numbers")
+        pp.pprint(closeness_centrality)
+
+        closeness_centrality = normalize(closeness_centrality, normalize_val)
+
+        for n,d in G.nodes_iter(data=True):
+            d['algorithm_filter'] = closeness_centrality[n]
+
+
+    elif(algorithm == "node_connectivity"):
+        node_connectivity = nx.node_connectivity(G)
+
+        print("Un-normalized centrality numbers")
+        pp.pprint(node_connectivity)
+
+        # node_connectivity = normalize(node_connectivity, normalize_val)
+        #
+        # for n,d in G.nodes_iter(data=True):
+        #     d['algorithm_filter'] = node_connectivity[n]
+
+
+    elif(algorithm == "communicability"):
+        communicability = nx.communicability(G)
+        #
+        # print("Un-normalized centrality numbers")
+        # pp.pprint(communicability)
+
+        for key in communicability:
+            # pp.pprint(communicability[key])
+            # communicability[key] = normalize(communicability[key], normalize_val)
+            # communicability[key] = communicability[key] * normalize_val
+            for key2 in communicability[key]:
+                communicability[key][key2] = communicability[key][key2] * normalize_val
+
+
+        # pp.pprint(communicability)
+
+        # node_connectivity = normalize(node_connectivity, normalize_val)
+        #
+        for u,v,a in G.edges(data=True):
+            a["weight"] = communicability[u][v]
+        # for u,v,a in G.edges(data=True):
+        #     print (u,v,a)
+
+
+
+    node_link = json_graph.node_link_data(G)
+    json_data = json.dumps(node_link)
+
+    return draw_graph(type, {'data': json_data})
+
+
+
 
 def graphmltojson(graphfile, outfile):
     """
@@ -75,16 +183,6 @@ def graphmltojson(graphfile, outfile):
     for n,d in G.nodes_iter(data=True):
 
         d['centrality'] = degree_centrality[n]
-
-        # print("-------")
-        # print(n )
-        # print(d)
-        # print("-------")
-        # d['modularitygroup'] = partition[n]
-
-        # node_link = json_graph.node_link_data(G)
-        # print(str(nx.readwrite.json_graph))
-        # json = nx.readwrite.json_graph.dumps(node_link)
 
     node_link = json_graph.node_link_data(G)
 
