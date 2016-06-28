@@ -1,6 +1,10 @@
 
 /* http://bl.ocks.org/mbostock/4062045 */
-
+@-webkit-keyframes dash {
+  to {
+    stroke-dashoffset: 1000;
+  }
+}
 .node {
   stroke: #fff;
   stroke-width: 1.5px;
@@ -9,6 +13,9 @@
 .link {
   stroke: #999;
   stroke-opacity: .6;
+  -webkit-animation: dash 60s linear infinite;
+  animation-direction: reverse;
+  stroke-dasharray: 8;
 }
 
 .fixed {
