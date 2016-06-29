@@ -86,20 +86,22 @@ var node = svg.selectAll(".node")
 // .on('mouseover', connectedNodes)
 // .on('mouseout', connectedNodes)
 .on('mouseover', function(d){
+  link.style("opacity", ".2");
   highlightItems("green", outgoingLinks(d3.select(this)))
   highlightItems("red", incomingLinks(d3.select(this)))
 })
 .on('mouseout', function(d){
+  link.style("opacity", "1");
   unhighlightItems(outgoingLinks(d3.select(this)))
   unhighlightItems(incomingLinks(d3.select(this)))
 })
 .on('click', function(d) {
-  if(opacity_toggle){
-    link.style("opacity", ".2");
-  }else{
-    link.style("opacity", "1");
-  }
-  opacity_toggle = !opacity_toggle;
+  // if(opacity_toggle){
+  //   link.style("opacity", ".2");
+  // }else{
+  //   link.style("opacity", "1");
+  // }
+  // opacity_toggle = !opacity_toggle;
 })
 .on("dblclick",function(d){
   // console.log("Hello world");
