@@ -3,11 +3,7 @@
 
 
 ## To start the project:
-*Must have jupyter installed*
-*Must have networkx installed*
-*Must have community installed*
-*Must have numpy installed*
-*Must have scipy installed*
+*Must have jupyter, networkx, community, numpy, and scipy installed*
 
 ```
 jupyter notebook    # this should be run at the root directory of this repo
