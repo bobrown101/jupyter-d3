@@ -1,3 +1,6 @@
+#This is the main file where I do most of the logic.
+#documentation could be better, but the code is very self explanatory
+
 import random
 import inspect, os
 from string import Template

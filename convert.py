@@ -1,4 +1,4 @@
-
+#I found this file online. Modified it a bit. Mainly used it for reference for graphml conversion
 #!/usr/bin/env python
 
 import sys
